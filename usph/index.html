@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>pH Change in the US</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" type="image/x-icon" href="./images/globe.ico" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+      integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+      crossorigin=""
+    ></script>
+
+    <link
+      href="https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css"
+      rel="stylesheet"
+    />
+
+    <script src="https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js"></script>
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+    <link rel="stylesheet" href="./css/leaflet-sidebar.css" />
+
+    <script src="./js/leaflet-sidebar.js"></script>
+
+    <link
+    rel="stylesheet"
+    href="./css/leaflet-search.css"
+  />
+  <script src="./js/leaflet-search.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <style type="text/css">
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body,
+      #map {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+
+
+
+  
+  
+
+  </style>
+  </head>
+  <body>
+
+  </head>
+  <body>
+
+
+    <div id="sidebar" class="leaflet-sidebar collapsed">
+      <!-- nav tabs -->
+      <div class="leaflet-sidebar-tabs">
+        <!-- top aligned tabs -->
+        <ul role="tablist">
+          <li>
+            <a href="#home" role="tab"><i class="fa fa-info"></i></a>
+          </li>
+          <li>
+            <a href="#moreinfo" role="tab"><i class="fa fa-list-alt"></i></a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- panel content -->
+      <div class="leaflet-sidebar-content">
+        <div class="leaflet-sidebar-pane" id="home">
+          <h1 class="leaflet-sidebar-header">
+            pH in the US, 1988 - 2018
+            <span class="leaflet-sidebar-close"
+              ><i class="fa fa-caret-left"></i
+            ></span>
+          </h1>
+
+          <p class="text">
+            <p>The US Clean Air Act Amendments of 1990 established a system for reducing acid rain in the US.
+            This law resulted in a 40% reduction in sulfur dioxide emissions, and drastically reduced acid rain in the US.</p>
+            <p>This map seeks to visualize how and where pH changes have occured in the US between 1988 & 2018.
+              pH data is from the National Atmospheric Deposition Program <a href = "https://nadp.slh.wisc.edu/maps-data/ntn-gradient-maps/"> National Trends Network</a>, which produces yearly pH estimates for the contiguous United States.
+              pH change was calculated in QGIS by subtracting 2018 pH levels from 1988 pH levels.
+            </p>
+            
+            <p><b>Legend</b></p>
+            <p>pH Change 1988 - 2018:</p>
+            <img src="./images/phChangeLegend.PNG" alt="pH Change Legend img">
+            <p>1988 & 2018 pH Layers:</p>
+            <img src="./images/phLegend.PNG" alt="pH Legend img">
+
+          </p>
+        </div>
+
+        <div class="leaflet-sidebar-pane" id="moreinfo">
+          <h1 class="leaflet-sidebar-header">
+            
+            <span class="leaflet-sidebar-close"
+              ><i class="fa fa-caret-left"></i
+            ></span>
+          </h1>
+          <h2 style="font-family:arial" class="text">Urban areas with the largest pH improvement, 1988 - 2018</h2>
+          <div style="font-family:arial" class="Osceola" data-point="41.030551, -93.765846">1. Osceola, IA</div>
+          <div style="font-family:arial" class="Valparaiso" data-point="41.470878, -87.054439">2. Valparaiso--Shorewood Forest, IN</div>
+          <div style="font-family:arial" class="Stoughton" data-point="42.915985, -89.225148">3. Stoughton, WI</div>
+          <div style="font-family:arial" class="Madison" data-point="43.080863, -89.376395">4. Madison, WI</div>
+          <div style="font-family:arial" class="MICity" data-point="41.714174, -86.898093">5. Michigan City--La Porte, IN--MI</div>
+          <div style="font-family:arial" class="Lakes" data-point="41.407201, -87.217368">6. Lakes of the Four Seasons, IN</div>
+          <div style="font-family:arial" class="Huntington" data-point="40.880667, -85.498068">7. Huntington, IN</div>
+          <div style="font-family:arial" class="Columbus" data-point="43.336804, -89.022777">8. Columbus, WI</div>
+          <div style="font-family:arial" class="Knoxville" data-point="41.317415, -93.099848">9. Knoxville, IA</div>
+          <div style="font-family:arial" class="Centerville" data-point="40.726730, -92.873308">10. Centerville, IA</div>
+
+          <h2 style="font-family:arial" class="text">Urban areas with the largest pH decline, 1988 - 2018</h2>
+          <div style="font-family:arial" class="Ontario" data-point="44.027764, -116.958263">1. Ontario--Payette, OR--ID</div>
+          <div style="font-family:arial" class="Weiser" data-point="44.247800, -116.974683">2. Weiser, ID--OR</div>
+          <div style="font-family:arial" class="Truckee" data-point="39.324646, -120.184633">3. Truckee, CA</div>
+          <div style="font-family:arial" class="Incline" data-point="39.247445, -119.953022">4. Incline Village, NV--CA</div>
+          <div style="font-family:arial" class="Reno" data-point="39.519158, -119.813778">5. Reno, NV--CA</div>
+          <div style="font-family:arial" class="Emmett" data-point="43.871320, -116.497802">6. Emmett, ID</div>
+          <div style="font-family:arial" class="Nampa" data-point="43.576703, -116.561973">7. Nampa, ID</div>
+          <div style="font-family:arial" class="Star" data-point="43.691283, -116.492992">8. Star, ID</div>
+          <div style="font-family:arial" class="Kuna" data-point="43.488232, -116.416823">9. Kuna, ID</div>
+          <div style="font-family:arial" class="Boise" data-point="43.610135, -116.218120">10. Boise City, ID</div>
+
+
+
+        </div>
+
+        <div class="leaflet-sidebar-pane" id="messages">
+          <h1 class="leaflet-sidebar-header">
+            Messages<span class="leaflet-sidebar-close"
+              ><i class="fa fa-caret-left"></i
+            ></span>
+          </h1>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div id="map" style="width: 100%; height: 100%"></div>
+    <script>
+      //OSM tiles attribution and URL
+      var osmLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+      var osmURL = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+      var osmAttrib = "&copy; " + osmLink;
+      var osmMap = L.tileLayer(osmURL, { attribution: osmAttrib });
+
+      //Stamen Toner tiles attribution and URL
+      var stamenURL =
+        "http://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.{ext}";
+      var stamenAttrib =
+        'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
+
+      var stamenMap = L.tileLayer(stamenURL, {
+        attribution: stamenAttrib,
+        subdomains: "abcd",
+        minZoom: 0,
+        maxZoom: 20,
+        ext: "png",
+      });
+
+      var baseLayers = {
+        "Stamen Toner": stamenMap,
+        Openstreetmap: osmMap,
+      };
+
+      var map = L.map("map", {
+        layers: [stamenMap],
+        fullscreenControl: false,
+        zoomControl: false
+      }).setView([39.021574, -101.751127], 4);
+
+      var pHChange = L.tileLayer("./tiles_change/{z}/{x}/{y}.png", {
+        minZoom: 4,
+        maxZoom: 10,
+        tms: false,
+        opacity: 0.8,
+        attribution: "Generated by TilesXYZ",
+      }).addTo(map);
+
+      var pH88 = L.tileLayer("./tiles_88/{z}/{x}/{y}.png", {
+        minZoom: 4,
+        maxZoom: 10,
+        tms: false,
+        opacity: 0.8,
+        attribution: "Generated by TilesXYZ",
+      });
+
+      var pH18 = L.tileLayer("./tiles_18/{z}/{x}/{y}.png", {
+        minZoom: 4,
+        maxZoom: 10,
+        tms: false,
+        opacity: 0.8,
+        attribution: "Generated by TilesXYZ",
+      });
+
+      function onEachFeature(feature, layer) {
+        var popupContent =
+          "<p>Urban area: " +
+          feature.properties.NAME20 +
+          "</br> pH change, 1988-2018 (in pH units): " +
+          Math.round(feature.properties._mean * 1000) / 1000 +
+          "</p>";
+
+        if (feature.properties && feature.properties.popupContent) {
+          popupContent += feature.properties.popupContent;
+        }
+
+        layer.bindPopup(popupContent);
+
+        layer.on("click", function () {
+          layer.openPopup();
+        });
+      }
+
+      var urbanAreasLayer = L.geoJSON(null, {
+        //style: function (feature) {
+        //return {
+
+        weight: 0.25,
+        fillOpacity: 0.8,
+        onEachFeature: onEachFeature,
+        //};
+        //},
+      });
+
+      fetch("./data/urbanAreas_simple.geojson")
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          var maxVal = -Infinity,
+            minVal = Infinity;
+          var allVals = [];
+          //Symbolizing based on water area in each state
+          data.features.forEach((f, i) => {
+            //                    if (f.properties.NAME != 'Alaska' && f.properties.NAME != 'Hawaii')
+            {
+              maxVal = Math.max(maxVal, f.properties._mean);
+              minVal = Math.min(minVal, f.properties._mean);
+              allVals.push(f.properties._mean);
+            }
+          });
+
+          var valRange = maxVal - minVal;
+          var colIntpl = d3
+            .scaleQuantile()
+            .domain(allVals)
+            .range(d3.schemeBlues[9]);
+
+          urbanAreasLayer.options.style = (f) => {
+            return {
+              fillColor: colIntpl(f.properties._mean),
+              color: "#fff",
+              weight: 0.25,
+              fillOpacity: 0.8,
+            };
+          };
+
+          urbanAreasLayer.myExtraData = [
+            maxVal,
+            minVal,
+            valRange,
+            d3.scalePow().exponent(0.5).domain([0, maxVal]).range([0, 20]),
+          ];
+
+          urbanAreasLayer.addData(data);
+        });
+
+      var gisLayers = {
+        "pH change, 1988-2018": pHChange,
+        "pH, 1988": pH88,
+        "pH, 2018": pH18,
+        "Urban areas": urbanAreasLayer,
+      };
+
+      var layerControl = L.control.layers(baseLayers, gisLayers).addTo(map);
+
+      new L.Control.Zoom({ position: 'bottomright' }).addTo(map);
+
+      map.on("zoomend", function () {
+        var zoomlevel = map.getZoom();
+        if (zoomlevel > 10) {
+          map.addLayer(urbanAreasLayer);
+        }
+      });
+
+      var sidebar = L.control.sidebar({ container: "sidebar" }).addTo(map);
+
+      L.control.fullscreen({
+  position: 'bottomright', // change the position of the button can be topleft, topright, bottomright or bottomleft, default topleft
+  title: 'Show me the fullscreen !', // change the title of the button, default Full Screen
+  titleCancel: 'Exit fullscreen mode', // change the title of the button when fullscreen is on, default Exit Full Screen
+  content: null, // change the content of the button, can be HTML, default null
+  forceSeparateButton: true, // force separate button to detach from zoom buttons, default false
+}).addTo(map);
+
+var searchControl = new L.Control.Search({
+        layer: urbanAreasLayer,
+        propertyName: "NAME20",
+        position: "topright",
+        moveToLocation: function (latlng, title, map) {
+          //map.fitBounds( latlng.layer.getBounds() );
+          let zoom = map.getBoundsZoom(latlng.layer.getBounds());
+          map.setView(latlng, zoom); // access the zoom
+        },
+        marker: false
+
+      });
+
+      searchControl
+        .on("search:locationfound", function (e) {
+          map.addLayer(urbanAreasLayer)
+          if (e.layer._popup) e.layer.openPopup();
+        })
+
+      map.addControl(searchControl); //inizialize search control
+
+      $(".Osceola").on("click", function () {
+        var latlng = $(this).data().point.split(",");
+        var lat = latlng[0];
+        var lng = latlng[1];
+        var zoom = 9.5;
+        map.setView([lat, lng], zoom).addLayer(urbanAreasLayer);
+      });
+
+      $(".Valparaiso").on("click", function () {
+        var latlng = $(this).data().point.split(",");
+        var lat = latlng[0];
+        var lng = latlng[1];
+        var zoom = 9.5;
+        map.setView([lat, lng], zoom).addLayer(urbanAreasLayer);
+      });
+
+      $(".Stoughton").on("click", function () {
+        var latlng = $(this).data().point.split(",");
+        var lat = latlng[0];
+        var lng = latlng[1];
+        var zoom = 9.5;
+        map.setView([lat, lng], zoom).addLayer(urbanAreasLayer);
+      });
+
+      $(".Madison").on("click", function () {
+        var latlng = $(this).data().point.split(",");
+        var lat = latlng[0];
+        var lng = latlng[1];
+        var zoom = 9.5;
+        map.setView([lat, lng], zoom).addLayer(urbanAreasLayer);
+      });
+
+      $(".MICity").on("click", function () {
+        var latlng = $(this).data().point.split(",");
+        var lat = latlng[0];
+        var lng = latlng[1];
+        var zoom = 9.5;
+        map.setView([lat, lng], zoom).addLayer(urbanAreasLayer);
+      });
+
+      $(".Lakes").on("click", function () {
+        var latlng = $(this).data().point.split(",");
+        var lat = latlng[0];
+        var lng = latlng[1];
+        var zoom = 9.5;
+        map.setView([lat, lng], zoom).addLayer(urbanAreasLayer);
+      });
+
+      $(".Huntington").on("click", function () {
+        var latlng = $(this).data().point.split(",");
+        var lat = latlng[0];
+        var lng = latlng[1];
+        var zoom = 9.5;
+        map.setView([lat, lng], zoom).addLayer(urbanAreasLayer);
+      });
+
+      $(".Columbus").on("click", function () {
+        var latlng = $(this).data().point.split(",");
+        var lat = latlng[0];
+        var lng = latlng[1];
+        var zoom = 9.5;
+        map.setView([lat, lng], zoom).addLayer(urbanAreasLayer);
+      });
+
+      $(".Knoxville").on("click", function () {
+        var latlng = $(this).data().point.split(",");
+        var lat = latlng[0];
+        var lng = latlng[1];
+        var zoom = 9.5;
+        map.setView([lat, lng], zoom).addLayer(urbanAreasLayer);
+      });
+
+      $(".Centerville").on("click", function () {
+        var latlng = $(this).data().point.split(",");
+        var lat = latlng[0];
+        var lng = latlng[1];
+        var zoom = 9.5;
+        map.setView([lat, lng], zoom).addLayer(urbanAreasLayer);
+      });
+
+      $(".Ontario").on("click", function () {
+        var latlng = $(this).data().point.split(",");
+        var lat = latlng[0];
+        var lng = latlng[1];
+        var zoom = 9.5;
+        map.setView([lat, lng], zoom).addLayer(urbanAreasLayer);
+      });
+
+      $(".Weiser").on("click", function () {
+        var latlng = $(this).data().point.split(",");
+        var lat = latlng[0];
+        var lng = latlng[1];
+        var zoom = 9.5;
+        map.setView([lat, lng], zoom).addLayer(urbanAreasLayer);
+      });
+
+      $(".Truckee").on("click", function () {
+        var latlng = $(this).data().point.split(",");
+        var lat = latlng[0];
+        var lng = latlng[1];
+        var zoom = 9.5;
+        map.setView([lat, lng], zoom).addLayer(urbanAreasLayer);
+      });
+
+      $(".Incline").on("click", function () {
+        var latlng = $(this).data().point.split(",");
+        var lat = latlng[0];
+        var lng = latlng[1];
+        var zoom = 9.5;
+        map.setView([lat, lng], zoom).addLayer(urbanAreasLayer);
+      });
+
+      $(".Reno").on("click", function () {
+        var latlng = $(this).data().point.split(",");
+        var lat = latlng[0];
+        var lng = latlng[1];
+        var zoom = 9.5;
+        map.setView([lat, lng], zoom).addLayer(urbanAreasLayer);
+      });
+
+      $(".Emmett").on("click", function () {
+        var latlng = $(this).data().point.split(",");
+        var lat = latlng[0];
+        var lng = latlng[1];
+        var zoom = 9.5;
+        map.setView([lat, lng], zoom).addLayer(urbanAreasLayer);
+      });
+
+      $(".Nampa").on("click", function () {
+        var latlng = $(this).data().point.split(",");
+        var lat = latlng[0];
+        var lng = latlng[1];
+        var zoom = 9.5;
+        map.setView([lat, lng], zoom).addLayer(urbanAreasLayer);
+      });
+
+      $(".Star").on("click", function () {
+        var latlng = $(this).data().point.split(",");
+        var lat = latlng[0];
+        var lng = latlng[1];
+        var zoom = 9.5;
+        map.setView([lat, lng], zoom).addLayer(urbanAreasLayer);
+      });
+
+      $(".Kuna").on("click", function () {
+        var latlng = $(this).data().point.split(",");
+        var lat = latlng[0];
+        var lng = latlng[1];
+        var zoom = 9.5;
+        map.setView([lat, lng], zoom).addLayer(urbanAreasLayer);
+      });
+
+      $(".Boise").on("click", function () {
+        var latlng = $(this).data().point.split(",");
+        var lat = latlng[0];
+        var lng = latlng[1];
+        var zoom = 9.5;
+        map.setView([lat, lng], zoom).addLayer(urbanAreasLayer);
+      });
+
+    </script>
+  </body>
+</html>

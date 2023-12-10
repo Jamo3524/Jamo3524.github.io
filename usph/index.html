@@ -156,8 +156,8 @@
       var stamenAttrib =
         'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
 
-      var stamenMap = L.tileLayer(stamenURL, {
-        attribution: stamenAttrib,
+      var stamenMap = L.tileLayer(osmURL, {
+        attribution: osmAttrib,
         subdomains: "abcd",
         minZoom: 0,
         maxZoom: 20,
@@ -165,12 +165,11 @@
       });
 
       var baseLayers = {
-        "Stamen Toner": stamenMap,
         Openstreetmap: osmMap,
       };
 
       var map = L.map("map", {
-        layers: [stamenMap],
+        layers: [osmMap],
         fullscreenControl: false,
         zoomControl: false
       }).setView([39.021574, -101.751127], 4);
